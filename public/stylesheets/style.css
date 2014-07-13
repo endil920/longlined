@@ -1,8 +1,24 @@
+
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
-
+.intro {
+  font-family: sans-serif;
+  margin: 50px;
+}
+text {
+  font: bold 48px monospace;
+}
+.enter {
+  fill: green;
+}
+.update {
+  fill: maroon;
+}
+.exit {
+  fill: steelblue;
+}
 a {
   color: #00B7FF;
 }

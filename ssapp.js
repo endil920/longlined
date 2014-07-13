@@ -8,7 +8,7 @@ var routes = require('./routes');
 var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
-var ssapp = require('./ssapp');
+
 var app = express();
 
 // all environments
@@ -27,11 +27,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
-app.use('/sundayschool', ssapp);
-app.get('/', function(req, res) {
-  res.sendfile('public/home.html');
-});
 
-http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
-});
+app.get('/',function(req, res) {
+  res.sendfile('public/ss/home.html');
+}); 
+module.exports = app;
