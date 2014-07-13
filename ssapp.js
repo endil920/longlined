@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(app.router);
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'sundayschool')));
 
 // development only
 if ('development' == app.get('env')) {
@@ -29,6 +29,9 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/',function(req, res) {
-  res.sendfile('public/ss/home.html');
+  res.sendfile('sundayschool/home.html');
 }); 
+app.get('/2014-07-12', function(req, res) {
+  res.sendfile('sundayschool/mark1.html')
+});
 module.exports = app;
