@@ -4,10 +4,12 @@
 <script src="javascripts/jmpress.custom.js"></script>
 <link href='http://fonts.googleapis.com/css?family=Josefin+Sans' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" type="text/css" href="stylesheets/lesson.css">
+<!--<link rel="stylesheet" type="text/css" href="http://jmpressjs.github.io/jmpress.js/dist/basic-animations.css">-->
+<link rel="stylesheet" type="text/css" href="stylesheets/animations.css">
 </head>
 <body>
 <div id="lesson">
- <div id="home" class="step">
+ <div id="home" class="step slide">
   <div class="centeredcontent">
   <h1 >YSF Sunday School</h1>
   <h2>2014-07-12</h2>
@@ -15,7 +17,7 @@
   </div>
  </div>	
 
- <div id="outline" class="step" data-x="1200" style="width: 350px;">
+ <div id="outline" class="step slide" data-x="1200" style="width: 350px;height:350px">
   <h1>Outline</h1>
   <ul>
   <li><b>prologue</b></li>
@@ -38,6 +40,36 @@
   </li>
   </ul>
  </div>
+ <div id="prologue" class="step slide" data-x="1200" data-y="-600"> 
+  <h1>Prologue</h1>
+  <p data-jmpress="fade">
+  <span data-jmpress="fade-out">
+The beginning of the <b><i>gospel of Jesus Christ, the Son of God</i></b>. As it is written in Isaiah the prophet, "Behold, I send my messenger before your face, who will prepare your way, the voice of one crying in the wilderness: 'Prepare the way of the Lord, make his paths straight,'" John appeared, baptizing in the wilderness and proclaiming a baptism of repentance for the forgiveness of sins. And all the country of Judea and all Jerusalem were going out to him and were being baptized by him in the river Jordan, confessing their sins. 
+</span>
+</p>
+  <p data-jmpress="fade">
+What is John calling the people to do?
+  </p>
+  <p data-jmpress="fade">
+What does it mean to repent?
+</p>
+<p data-jmpress="fade" id="whyconfess">
+Why is it necessary to confess sins in order to repent?
+</p>
+ </div> 
+
+<div id="baptism" class="step" data-x="2400" data-y="-600"> 
+<div class="centeredcontent">
+<h1>The Baptism of Jesus</h1>
+</div>
+
+<div id="baptismquote" class="step" data-x="2800" data-y="-600">
+v11: And a voice came from heaven,
+<h1 style="font-size: 5em"> "You are my beloved Son; with you I am well pleased."</h1>
+</div>
+
+
+</div>
 
 </div>
 </body>

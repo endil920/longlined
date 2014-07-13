@@ -1,0 +1,19 @@
+.will-fade {
+  transition: opacity 0.5s;
+  -webkit-transition: opacity 0.5s;
+  opacity: 0.0;
+}
+
+.do-fade {
+  opacity: 1.0;
+}
+
+.will-fade-out {
+ transition: opacity 0.5s;
+ -webkit-transition: opacity 0.5s;
+ opacity: 1.0;
+}
+
+.do-fade-out {
+ opacity: 0.0;
+}

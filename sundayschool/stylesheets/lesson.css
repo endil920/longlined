@@ -1,11 +1,13 @@
 .step {
   width: 900px;
   height: 450px;
+  font-family: 'Josefin Sans', sans-serif;
+}
+.slide{
   padding: 40px;
   background-color: #F0F0F0;
   box-shadow: 10px 10px 5px #D8D8D8;
   border-radius: 20px;
-  font-family: 'Josefin Sans', sans-serif;
 }
 .centeredcontent {
   position: absolute;
@@ -15,4 +17,6 @@
   left: 0%;
   text-align: center;
 }
+
+
 
