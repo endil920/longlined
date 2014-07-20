@@ -31,7 +31,7 @@ if ('development' == app.get('env')) {
 app.get('/',function(req, res) {
   res.sendfile('sundayschool/home.html');
 }); 
-app.get('/2014-07-12', function(req, res) {
+app.get('/mark1', function(req, res) {
   res.sendfile('sundayschool/mark1.html')
 });
 module.exports = app;
