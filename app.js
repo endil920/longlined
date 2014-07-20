@@ -31,7 +31,9 @@ app.use('/sundayschool', ssapp);
 app.get('/', function(req, res) {
   res.sendfile('public/home.html');
 });
-
+app.get('/google8715d90fdce94fca.html', function(req, res) {
+  res.sendfile('public/google_verification.html');
+});
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
