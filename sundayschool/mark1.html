@@ -18,6 +18,12 @@
 </script>
 </head>
 <body>
+<script src='/socket.io/socket.io.js' type='text/javascript'></script>
+<script src='./javascripts/presentation.js'></script>
+<script type='text/javascript'>
+var pres = new Pres(io.connect());
+</script>
+
 <div id="lesson">
  <div id="home" class="step slide">
   <div class="centeredcontent">
@@ -52,7 +58,7 @@
  </div>
  <div id="prologue" class="step slide" data-x="1200" data-z="-2400" style="height:350px"> 
   <h1>Prologue</h1>
-  <p data-jmpress="fade">
+  <p data-jmpress="fade" id="first">
 The beginning of the <b><i>gospel of Jesus Christ, the Son of God</i></b>. As it is written in Isaiah the prophet, "Behold, I send my messenger before your face, who will prepare your way, the voice of one crying in the wilderness: 'Prepare the way of the Lord, make his paths straight,'" John appeared, baptizing in the wilderness and proclaiming a baptism of repentance for the forgiveness of sins. And all the country of Judea and all Jerusalem were going out to him and were being baptized by him in the river Jordan, confessing their sins. 
 </p>
 <br>
