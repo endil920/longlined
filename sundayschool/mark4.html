@@ -1,0 +1,178 @@
+<html>
+    <head>
+        <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script src="javascripts/jmpress.custom.js"></script>
+        <link href='http://fonts.googleapis.com/css?family=Josefin+Sans' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="stylesheets/lesson.css">
+        <!--<link rel="stylesheet" type="text/css" href="http://jmpressjs.github.io/jmpress.js/dist/basic-animations.css">-->
+        <link rel="stylesheet" type="text/css" href="stylesheets/animations.css">
+        <link rel="stylesheet" type="text/css" href="stylesheets/mark4.css">
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                                    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-43025748-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </head>
+    <body>
+        <script src='/socket.io/socket.io.js' type='text/javascript'></script>
+        <script src='./javascripts/presentation.js'></script>
+
+        <div id="lesson">
+            <div id="home" class="step slide">
+                <div class="roomjoin" data-jmpress="fade-out">
+                    tap to join a room
+                </div>
+                <div class="centeredcontent">
+                    <h1 >YSF Sunday School</h1>
+                    <h2>2014-07-26</h2>
+                    <h2>The Parables of Mark 4</h2>
+                </div>
+            </div>
+
+            <div id="room" class="step form" data-z="1200">
+                enter room:<input id="roomid" type="text">
+            </div>
+            <div id="outline" class="step slide" data-x="1200" style="width: 350px;height:350px">
+                <h1>Outline</h1>
+                <ul>
+                    <li>The Parable of the Sower</li>
+                    <li>A Lamp Under a Basket</li>
+                    <li>The Parable of the Seed Growing</li>
+                    <li>The Parable of the Mustard Seed</li>
+                    <li>Parables</li>
+                </ul>
+            </div>
+
+            <div id="sower" class="step" data-z="-2400">
+                <span style="color:maroon">
+                    <span style="font-size:2em">"Listen! Behold, a sower went out to sow."</span>
+                    <br>
+                    <ul style="font-size:1.5em">
+                        <li data-jmpress="fade">some seed fell along the path<span data-jmpress="fade">     ...when they hear
+                            , Satan imediately comes and takes away the word that is sown in them</span></li>
+                        <li data-jmpress="fade">
+                            other seed fell on rocky ground, where it did not have much soil
+                            <span data-jmpress="fade">
+                                ...they have no root in themselves, but endure for a while; then, ... immediately [fall] away
+                            </span>
+                        </li>
+                        <li data-jmpress="fade">
+                            other seed fell among thorns
+                            <span data-jmpress="fade">
+                                ...the cares of the world and the deceitfulness of riches
+                                and the desires for other things enter in and choke the word, and it proves unfruitful
+                            </span>
+                        </li>
+                        <li data-jmpress="fade">
+                            other seeds fell into good soil and produced grain, growing up and increasing
+                            <span data-jmpress="fade">
+                                and yielding <span style="font-size:2em">30</span>fold and <span style="font-size:2.5em">60</span>
+                                fold and <span style="font-size:3em">100</span>fold.
+                            </span>
+                        </li>
+                    </ul>
+                </span>
+            </div>
+
+            <div id="sowerquestion" class="step question" data-z="-1200">
+                What kind of soil are you?
+            </div>
+
+
+            <div id="lamp" class="step" data-z="-2400" data-y="1200">
+                <div class="centeredcontent">
+                    <span style="color:maroon">
+                        <span style="font-size:2em">
+                            "Is a lamp brought in to be put under a basket, or under a bed, and not on a stand?"
+                        </span>
+                    </span>
+                    <br>
+                    <br>
+                    <span style="font-size:1.5em" data-jmpress="fade">God's Word is not meant to be hidden</span>
+                    <br>
+                    <br>
+                    <span style="color:maroon;font-size:2em" data-jmpress="fade">
+                        <span data-jmpress="fade-out">
+                            "with the measure you use, it will be measured to you, and still more will be added to you"
+                        </span>
+                    </span>
+                </div>
+            </div>
+            <div id="lamp2" class="step" data-z="-2400" data-y="1200">
+                <div class="centeredcontent" data-jmpress="fade">
+                    <span style="color:maroon">
+                        <span style="font-size:2em">
+                            "Is a lamp brought in to be put under a basket, or under a bed, and not on a stand?"
+                        </span>
+                    </span>
+                    <br>
+                    <br>
+                    <span style="font-size:1.5em">God's Word is not meant to be hidden</span>
+                    <br>
+                    <br>
+                    <span style="color:maroon;font-size:2em">
+                            "The measure [of thought and study] you give [to the truth you hear] will be the measure
+                            [of virtue and knowledge] that comes back to you - and more [besides] will be given to you who hear." (AMP)
+                    </span>
+                </div>
+            </div>
+
+            <div id="lampquestion" class="step question" data-z="-1200" data-y="1200">
+                What measure do you use to receive the word of God?
+            </div>
+
+            <div id="seedgrowing" class="step" data-z="-2400" data-y="2400">
+                <div class="centeredcontent">
+                <span class="jesusquote">
+                    "The kingdom of God is as if a man should scatter seed on the ground. <span data-jmpress="fade">
+                    He sleeps and rises night and day, and the seed sprouts and grows; he knows not how.</span>
+                    <span data-jmpress="fade">
+                        The earth produces by itself, first the blade, then the ear, then the full grain in the ear.
+                    </span>
+                    <span data-jmpress="fade">
+                        But when the grain is ripe, at once he puts in the sickle, because the harvest has come."
+                    </span>
+                </span>
+                </div>
+            </div>
+
+            <div id="seedgrowingquestion" class="step question" data-z="-1200" data-y="2400">
+                Will you be ready when "the harvest has come?"
+            </div>
+
+            <div id="mustard" class="step" data-z="-2400" data-y="3600">
+                <span class="jesusquote centeredcontent">
+                    "With what can we compare the kingdom of God, or what parable shall we use for it?
+                    <span data-jmpress="fade">It is like a grain of mustard seed, when sown on the ground, is the <span style="font-size:.5em">
+                    smallest
+                        </span> of all the seeds on the earth, </span><span data-jmpress="fade">yet when it is sown it grows up and becomes
+                    <span style="font-size:2em">larger</span> than all the garden plants and puts out large branches, so that the birds of the air can make
+                    nests in its shade."</span>
+                </span>
+            </div>
+
+            <script type='text/javascript'>
+                var pres = new Pres(io.connect());
+                $("#room").keypress(function(key) {
+                    if (key.charCode == 13) {
+                        var content = document.getElementById("roomid");
+                        console.log(content.value);
+                    }
+                });
+            </script>
+
+        </body>
+        <script type="text/javascript">
+            $(function() {
+                $('#lesson').jmpress();
+                $('#lesson').jmpress('route',['#home','#outline']);
+            });
+        </script>
+
+    </html>
+
