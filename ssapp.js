@@ -34,5 +34,7 @@ app.get('/',function(req, res) {
 app.get('/mark1', function(req, res) {
   res.sendfile('sundayschool/mark1.html')
 });
-
+app.get('/mark4', function(req, res) {
+  res.sendfile('sundayschool/mark4.html')
+});
 module.exports = app;
