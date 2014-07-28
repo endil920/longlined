@@ -443,7 +443,7 @@
 		 * @return Object newly active slide
 		 */
 		function next() {
-      console.log(activeSubstep);
+
 			return select.call(this, callCallback.call(this, 'selectNext', active, {
 				stepData: $(active).data('stepData')
 				,substep: activeSubstep
