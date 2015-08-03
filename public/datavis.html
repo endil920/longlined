@@ -16,7 +16,7 @@
     </style>
 </head>
 <body>
-    This graph shows average temperatures by region over the years. Click on any item on the right next to the graph to get started.
+    This graph shows average temperatures by region over the years. Click on any item on the right next to the graph to get started. The Global temperature shows by default.
     <script type="text/javascript">
 
         var margin = {top: 80, left:80, right:200, bottom:80};
@@ -178,30 +178,32 @@
                 axisY.transition().call(yAxis);
                 rescale();
             } else {
-                maxTemp = Number.MIN_VALUE;
-                minTemp = Number.MAX_VALUE;
-                visible[d] = false;
-                d3.select(this).attr("fill", "black");
-                d3.select("." + classify(d))
-                .transition()
-                .duration(500)
-                .attr("d", zeroFunc)
-                .style("stroke-width", "0px");
+                if (Object.keys(visible).filter(function(d) {return visible[d];}).length > 1) {
+                    maxTemp = Number.MIN_VALUE;
+                    minTemp = Number.MAX_VALUE;
+                    visible[d] = false;
+                    d3.select(this).attr("fill", "black");
+                    d3.select("." + classify(d))
+                    .transition()
+                    .duration(500)
+                    .attr("d", zeroFunc)
+                    .style("stroke-width", "0px");
 
-                Object.keys(visible).filter(function(d) {return visible[d];})
-                .forEach(function(d) {
-                    if (mins[d] < minTemp) {
-                        minTemp = mins[d];
-                    }
-                    if (maxes[d] > maxTemp) {
-                        maxTemp = maxes[d];
-                    }
-                });
-                yRange.domain([minTemp, maxTemp]);
-                yAxis.scale(yRange);
-                axisY.transition().call(yAxis);
+                    Object.keys(visible).filter(function(d) {return visible[d];})
+                    .forEach(function(d) {
+                        if (mins[d] < minTemp) {
+                            minTemp = mins[d];
+                        }
+                        if (maxes[d] > maxTemp) {
+                            maxTemp = maxes[d];
+                        }
+                    });
+                    yRange.domain([minTemp, maxTemp]);
+                    yAxis.scale(yRange);
+                    axisY.transition().call(yAxis);
 
-                rescale();
+                    rescale();
+                }
             }
         });
 
@@ -213,6 +215,7 @@
             .attr("d", lineFunc("Glob"))
             .style("stroke-width", "3px");
             visible["Glob"] = "Glob";
+
         })();
 
 
