@@ -1,30 +1,243 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 
-	<head>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
-	</head>
-	<body>
-		<script type="text/javascript">
-			var data = [1, 2, 3, 4, 5, 6, 7];
-			var svg = d3.select("body").append("svg").attr("width", 500).attr("height", 500);
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+    <script src="./ExcelFormattedGISTEMPData2JS.js"></script>
+    <style>
+        .line {
+            fill: none;
+            stroke: steelblue;
+            stroke-width: 3px;
+        }
+        .green {
+            fill: none;
+            stroke: green;
+            stroke-width: 3px;
+        }
+        .red {
+            fill: none;
+            stroke: red;
+            stroke-width: 3px;
+        }
+    </style>
+</head>
+<body>
+    <script type="text/javascript">
 
-			svg.selectAll("div").data(data).enter().append("ellipse").attr("cx", function(d) {return 10 * d * d;})
-			.attr("cy", function(d) {return 10 * d * d;})
-			.attr("ry", function(d) {return d * d;})
-			.attr("rx", function(d) {return d * d * Math.random();})
-			.attr("stroke", "green")
-			.attr("stroke-width", 4)
-			.attr("fill", "yellow")
-			.attr("fill-opacity", 0.5);
+        var margin = {top: 80, left:80, right:200, bottom:80};
+        var width = 1000 - margin.right - margin.left;
+        var height = 600 - margin.right - margin.left;
+        var svg = d3.select("body")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        svg.append("text")
+        .attr("y", 0)
+        .attr("x", width / 3)
+        .text("Temperatures by Region Over Time");
+
+        svg.append("text")
+        .attr("y", height + 40)
+        .attr("x", width / 2 - 10)
+        .text("year");
+
+        svg.append("text")
+        .attr("x", -height / 2)
+        .text("T (C)")
+        .attr("transform", "rotate(-90)")
+        .attr("y", - 40);
+
+        var date = new Date();
+        var maxDate = d3.max(data, function(d) {return date.setYear(d.Year);});
+        var minDate = d3.min(data, function(d) {return date.setYear(d.Year);});
+        var minTemp = d3.min(data, function(d) {return d.Glob;});
+        var maxTemp = d3.max(data, function(d) {return d.Glob;});
+
+        var xRange = d3.time.scale().domain([minDate, maxDate]).range([0, width]);
+        var yRange = d3.scale.linear().domain([minTemp, maxTemp]).range([height, 0]);
+
+        var xAxis = d3.svg.axis().scale(xRange).orient("bottom").ticks(10);
+        var yAxis = d3.svg.axis().scale(yRange).orient("left");
+
+        var axisX = svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," +  height + ")")
+        .call(xAxis);
+
+        var axisY = svg.append("g")
+        .attr("class", "y axis")
+        .attr("transform", "translate(0, 0)")
+        .call(yAxis);
+
+        var globTemp = d3.svg.line()
+        .interpolate("monotone")
+        .x(function(d) {return xRange(date.setYear(d.Year));})
+        .y(function(d) {return yRange(d.Glob);});
+
+        var nTemp = d3.svg.line()
+        .interpolate("monotone")
+        .x(function(d) {return xRange(date.setYear(d.Year));})
+        .y(function(d) {return yRange(d.NHem);});
+
+        var sTemp = d3.svg.line()
+        .interpolate("monotone")
+        .x(function(d) {return xRange(date.setYear(d.Year));})
+        .y(function(d) {return yRange(d["SHem"]);});
+
+        var lineFunc = function(matcher) {
+            return d3.svg.line()
+            .interpolate("monotone")
+            .x(function(d) {return xRange(date.setYear(d.Year));})
+            .y(function(d) {return yRange(d[matcher]);});
+        }
+
+        var zeroFunc = d3.svg.line()
+        .interpolate("monotone")
+        .x(function(d) {return xRange(date.setYear(d.Year));})
+        .y(height);
 
 
+        var colors = [
+            "#00CCCC",
+            "#99FFCC",
+            "#CCFFCC",
+            "#FFCC66",
+            "#66FFCC",
+            "#CCFF99",
+            "#9966FF",
+            "#CC6699",
+            "#93D673",
+            "#CC33FF",
+            "#CC3399",
+            "#0066CC",
+            "#CCCC52"
+        ];
+        var keys = Object.keys(data[0]).slice(1);
+        var mins = {};
+        var maxes = {};
+        var visible = {};
+
+        function classify(str) {
+            return "region" + str.replace(/-/g,"");
+        }
+
+        svg.selectAll("options")
+        .data(keys)
+        .enter()
+        .append("path")
+        .attr("class", function(d, i) {
+            mins[d] = d3.min(data, function(temps) {return temps[d];});
+            maxes[d] = d3.max(data, function(temps) {return temps[d];});
+            visible[d] = false;
+            return classify(d);
+        })
+        .datum(data)
+        .attr("d", zeroFunc)
+        .style("fill", "none")
+        .style("stroke", function(d, i) {return "#" + colors[i];})
+        .style("stroke-width", "0px");
+
+        var global = svg.append("path")
+        .datum(data)
+        .attr("class", "green")
+        .attr("d", lineFunc("Glob"));
+
+        //global.transition().attr("d", zeroFunc);
+
+        function initializeGlob() {
+            svg.select("." + classify("Glob"))
+            .transition("d")
+            .attr("d", lineFunc("Glob"))
+            .attr("stroke-width", "3px")
+            .attr("stroke", "red");
+            visible["Glob"] = "Glob";
+        }
+
+        function rescale() {
+
+            svg.selectAll("option")
+            .select("path")
+            .attr("d", function(d, i) {
+                console.log(d);
+                if (visible[i]) {
+                    console.log(d + " should be vis");
+                    d3.select("." + classify(d))
+                    .attr("d", lineFunc(d))
+                    .attr("stroke", colors[i])
+                    .attr("stroke-width", "3px");
+                }
+            });
+        }
+
+        svg.selectAll("options")
+        .data(keys)
+        .enter()
+        .append("text")
+        .text(function(d) {return d;})
+        .attr("x", width + margin.left)
+        .attr("y", function(d, i) {return 15 * i;})
+        .on("click", function(d, i) {
+            if (!visible[i]) {
+                visible[i] = d;
+                d3.select(this).attr("fill", colors[i]);
+/*
+                var newMin = d3.min(data, function(temps) {return temps[d];});
+                var newMax = d3.max(data, function(temps) {return temps[d];});
+                if (newMin < minTemp) {
+                    minTemp = newMin;
+                }
+                if (newMax > maxTemp) {
+                    maxTemp = newMax;
+                }
+                yRange.domain([minTemp, maxTemp]);
+                yAxis.scale(yRange);
+                axisY.transition().call(yAxis);
+*/
+
+                d3.select("." + classify(d))
+                .transition()
+                .duration(500)
+                .attr("d", lineFunc(d))
+                .style("stroke", colors[i])
+                .style("stroke-width", "3px");
 
 
-		</script>
-		<svg x="500" y="500" height="500" width="500">
-            <path d="M 150 300 q 150 -500 400 100" stroke="blue"
-              stroke-width="5" fill="none" />
-			</svg>
-	</body>
+//                rescale();
+            } else {
+                maxTemp = Number.MIN_VALUE;
+                minTemp = Number.MAX_VALUE;
+                visible[i] = false;
+                d3.select(this).attr("fill", "black");
+                d3.select("." + classify(d))
+                .transition()
+                .duration(500)
+                .attr("d", zeroFunc)
+                .style("stroke-width", "0px");
+
+                Object.keys(visible).filter(function(d) {return visible[d];})
+                .forEach(function(d) {
+                    if (mins[d] < minTemp) {
+                        minTemp = mins[d];
+                    }
+                    if (maxes[d] > maxTemp) {
+                        maxTemp = maxes[d];
+                    }
+                });
+                yRange.domain([minTemp, maxTemp]);
+                yAxis.scale(yRange);
+                axisY.transition().call(yAxis);
+
+                //rescale();
+            }
+        });
+
+        initializeGlob();
+
+
+    </script>
+</body>
 </html>
