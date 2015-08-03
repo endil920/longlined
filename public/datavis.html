@@ -114,8 +114,12 @@
             "#CC33FF",
             "#CC3399",
             "#0066CC",
-            "#CCCC52"
+            "#CCCC52",
+            "steelblue"
         ];
+
+        var colorMap = {};
+
         var keys = Object.keys(data[0]).slice(1);
         var mins = {};
         var maxes = {};
@@ -138,38 +142,35 @@
         .datum(data)
         .attr("d", zeroFunc)
         .style("fill", "none")
-        .style("stroke", function(d, i) {return "#" + colors[i];})
+        .style("stroke", function(d, i) {return colors[i];})
         .style("stroke-width", "0px");
-
+/*
         var global = svg.append("path")
         .datum(data)
         .attr("class", "green")
         .attr("d", lineFunc("Glob"));
 
         //global.transition().attr("d", zeroFunc);
-
+*/
         function initializeGlob() {
             svg.select("." + classify("Glob"))
-            .transition("d")
+            .transition()
+            .duration(500)
             .attr("d", lineFunc("Glob"))
-            .attr("stroke-width", "3px")
-            .attr("stroke", "red");
+            .style("stroke-width", "3px");
             visible["Glob"] = "Glob";
         }
 
         function rescale() {
-
-            svg.selectAll("option")
-            .select("path")
-            .attr("d", function(d, i) {
-                console.log(d);
-                if (visible[i]) {
-                    console.log(d + " should be vis");
-                    d3.select("." + classify(d))
-                    .attr("d", lineFunc(d))
-                    .attr("stroke", colors[i])
-                    .attr("stroke-width", "3px");
-                }
+            Object.keys(visible).filter(function(d) {return visible[d];})
+            .forEach(function(d) {
+                console.log(d + " should be vis");
+                svg.select("." + classify(d))
+                .transition()
+                .duration(500)
+                .attr("d", lineFunc(d))
+//                .attr("stroke", "red")
+                .style("stroke-width", "3px");
             });
         }
 
@@ -181,10 +182,10 @@
         .attr("x", width + margin.left)
         .attr("y", function(d, i) {return 15 * i;})
         .on("click", function(d, i) {
-            if (!visible[i]) {
-                visible[i] = d;
+            if (!visible[d]) {
+                visible[d] = d;
                 d3.select(this).attr("fill", colors[i]);
-/*
+
                 var newMin = d3.min(data, function(temps) {return temps[d];});
                 var newMax = d3.max(data, function(temps) {return temps[d];});
                 if (newMin < minTemp) {
@@ -196,21 +197,11 @@
                 yRange.domain([minTemp, maxTemp]);
                 yAxis.scale(yRange);
                 axisY.transition().call(yAxis);
-*/
-
-                d3.select("." + classify(d))
-                .transition()
-                .duration(500)
-                .attr("d", lineFunc(d))
-                .style("stroke", colors[i])
-                .style("stroke-width", "3px");
-
-
-//                rescale();
+                rescale();
             } else {
                 maxTemp = Number.MIN_VALUE;
                 minTemp = Number.MAX_VALUE;
-                visible[i] = false;
+                visible[d] = false;
                 d3.select(this).attr("fill", "black");
                 d3.select("." + classify(d))
                 .transition()
@@ -231,7 +222,7 @@
                 yAxis.scale(yRange);
                 axisY.transition().call(yAxis);
 
-                //rescale();
+                rescale();
             }
         });
 
