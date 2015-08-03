@@ -5,24 +5,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
     <script src="./ExcelFormattedGISTEMPData2JS.js"></script>
     <style>
-        .line {
+        .axis {
             fill: none;
-            stroke: steelblue;
-            stroke-width: 3px;
+            stroke: #000;
+            shape-rendering: crispEdges;
         }
-        .green {
-            fill: none;
-            stroke: green;
-            stroke-width: 3px;
-        }
-        .red {
-            fill: none;
-            stroke: red;
-            stroke-width: 3px;
+        body {
+            font: 10px sans-serif;
         }
     </style>
 </head>
 <body>
+    This graph shows average temperatures by region over the years. Click on any item on the right next to the graph to get started.
     <script type="text/javascript">
 
         var margin = {top: 80, left:80, right:200, bottom:80};
@@ -51,6 +45,7 @@
         .attr("transform", "rotate(-90)")
         .attr("y", - 40);
 
+
         var date = new Date();
         var maxDate = d3.max(data, function(d) {return date.setYear(d.Year);});
         var minDate = d3.min(data, function(d) {return date.setYear(d.Year);});
@@ -60,7 +55,7 @@
         var xRange = d3.time.scale().domain([minDate, maxDate]).range([0, width]);
         var yRange = d3.scale.linear().domain([minTemp, maxTemp]).range([height, 0]);
 
-        var xAxis = d3.svg.axis().scale(xRange).orient("bottom").ticks(10);
+        var xAxis = d3.svg.axis().scale(xRange).orient("bottom").ticks(12);
         var yAxis = d3.svg.axis().scale(yRange).orient("left");
 
         var axisX = svg.append("g")
@@ -108,7 +103,7 @@
             "#FFCC66",
             "#66FFCC",
             "#CCFF99",
-            "#9966FF",
+            "purple",
             "#CC6699",
             "#93D673",
             "#CC33FF",
@@ -144,22 +139,7 @@
         .style("fill", "none")
         .style("stroke", function(d, i) {return colors[i];})
         .style("stroke-width", "0px");
-/*
-        var global = svg.append("path")
-        .datum(data)
-        .attr("class", "green")
-        .attr("d", lineFunc("Glob"));
 
-        //global.transition().attr("d", zeroFunc);
-*/
-        function initializeGlob() {
-            svg.select("." + classify("Glob"))
-            .transition()
-            .duration(500)
-            .attr("d", lineFunc("Glob"))
-            .style("stroke-width", "3px");
-            visible["Glob"] = "Glob";
-        }
 
         function rescale() {
             Object.keys(visible).filter(function(d) {return visible[d];})
@@ -169,7 +149,6 @@
                 .transition()
                 .duration(500)
                 .attr("d", lineFunc(d))
-//                .attr("stroke", "red")
                 .style("stroke-width", "3px");
             });
         }
@@ -226,7 +205,15 @@
             }
         });
 
-        initializeGlob();
+
+        (function() {
+            svg.select("." + classify("Glob"))
+            .transition()
+            .duration(500)
+            .attr("d", lineFunc("Glob"))
+            .style("stroke-width", "3px");
+            visible["Glob"] = "Glob";
+        })();
 
 
     </script>
