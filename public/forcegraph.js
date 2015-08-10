@@ -129,9 +129,9 @@ node.append("text")
 .attr("y",            function(d, i) {return 8;})
 .attr("font-family",  "Calibri")
 .attr("fill", function(d) {if (d.deceased) {
-    return "white";}
+    return "black";}
                                       else {
-                                          return  "yellow";  }})
+                                          return  "white";  }})
 .attr("font-size",    function(d, i) {  return  "1em"; })
 
 
