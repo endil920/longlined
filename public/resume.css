@@ -1,0 +1,53 @@
+h1 {
+    text-align: center;
+}
+body {
+    font-family: 'Nunito'
+}
+.item {
+
+}
+.resume {
+    padding: 0 10% 5% 10%;
+    display: inline-block;
+    position: relative;
+
+}
+.titlebox {
+    padding: 2%;
+}
+.section {
+    position: relative;
+    display: inline-block;
+    margin: 1%;
+    padding: 1%;
+    box-shadow: 3px 3px 3px 3px gray;
+}
+.main-panel {
+    float: right;
+}
+.summary {
+    float: left;
+    height: 100%;
+    display: inline-block;
+    width: 25%;
+}
+.subtitle {
+    font: 20px;
+    font-weight: bold;
+
+}
+.job-title {
+    font: 13px;
+    font-style: italic;
+
+}
+.main {
+    text-align: left;
+
+}
+.period {
+    text-align: right;
+
+
+}
