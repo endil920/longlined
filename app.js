@@ -25,16 +25,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
 if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
+    app.use(express.errorHandler());
 }
 app.use('/sundayschool', ssapp);
-app.get('/', function(req, res) {
-  res.sendfile('public/home.html');
-});
+app.get('/', express.static(path.join(__dirname, 'public')));
+
 app.get('/google8715d90fdce94fca.html', function(req, res) {
-  res.sendfile('public/google_verification.html');
+    res.sendfile('public/google_verification.html');
 });
 var server = http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+    console.log('Express server listening on port ' + app.get('port'));
 });
 require('./presentation_server').listen(server);
