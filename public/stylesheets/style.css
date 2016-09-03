@@ -1,15 +1,14 @@
 
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: 'Open Sans Condensed', sans-serif;
 }
-.intro {
-  font-family: sans-serif;
-  margin: 50px;
+
+.emph {
+    color: #87CEFA;
+
 }
-text {
-  font: bold 48px monospace;
-}
+
 .enter {
   fill: green;
 }
