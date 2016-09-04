@@ -2,6 +2,11 @@
 body {
   padding: 50px;
   font-family: 'Open Sans Condensed', sans-serif;
+  -webkit-animation: fadein 2s;
+  -moz-animation: fadein 2s;
+  -ms-animation: fadein 2s;
+  -o-animation: fadein 2s;
+  animation: fadein 2s;
 }
 
 .emph {
