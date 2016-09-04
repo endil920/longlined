@@ -5,7 +5,23 @@ body {
     
 }
 
-.intro {
+.intro2 {
+    -webkit-animation: fadein;
+    -moz-animation: fadein;
+    -ms-animation: fadein;
+    -o-animation: fadein;
+    animation: fadein;
+
+    -webkit-animation-duration: 1.5s;
+    animation-duration: 1.5s;
+    
+    -webkit-animation-delay: 1s;
+    animation-delay: 1s;
+
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    opacity: 0;
+    width: 30%;
 
 }
 
@@ -19,15 +35,17 @@ body {
     -webkit-animation-duration: 2s;
     animation-duration: 2s;
     
-    -webkit-animation-delay: .75s;
-    animation-delay: .75s;
+    -webkit-animation-delay: 2.5s;
+    animation-delay: 2.5s;
 
     -webkit-animation-fill-mode: forwards;
     animation-fill-mode: forwards;
     opacity: 0;
     width: 30%;
 }
-
+.larger {
+    font-size: x-large;
+}
 a, u {
     text-decoration: none;
 }
