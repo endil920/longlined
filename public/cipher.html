@@ -1,0 +1,72 @@
+<html>
+<title>message encoder</title>
+<body>
+<h3>Encipher</h3>
+Enter a passcode and a message to encipher:
+<input id="passcodeplain" type="text" name="passcode"></input>
+<br>
+<textarea id="plaintext" rows="13" cols="50"></textarea>
+<input type="submit" value="Encipher" id="encipher"></input>
+<p id="cypheroutput"></p>
+<h3>Decipher</h3>
+Enter a passcode and a message to encipher:
+<input id="passcodeenc" type="text" name="passcode"></input>
+<br>
+<textarea id="ciphertext" rows="13" cols="50"></textarea>
+<input type="submit" value="Decipher" id="decipher"></input>
+<p id="plaintextoutput"></p>
+</body>
+<script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"></script>
+<script type="text/javascript">
+(function() {
+var alpha = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z', ' ', '1', '2','3','4','5','6','7','8','9','0'];
+var alphaIndex = {};
+alpha.forEach(function(letter, index) {
+                alphaIndex[letter] = index;
+                });
+function encode(pw,phrase)
+{
+        
+        phrase = phrase.toLowerCase();
+        var length = alpha.length;
+        return Array.prototype.map.call(phrase, function(letter, index) {
+                        var initIndex = alphaIndex[letter];
+                        if (initIndex == undefined) 
+                          return letter;
+
+                        var offset = alphaIndex[pw[index % pw.length]];
+                        var newletter =  alpha[(initIndex + offset) % alpha.length];
+                        return newletter;
+                        }).join("");
+}
+function decode(pw, phrase)
+{
+        phrase = phrase.toLowerCase();
+        var length = alpha.length;
+        return Array.prototype.map.call(phrase, function(letter, index) {
+                        var initIndex = alphaIndex[letter];
+                        if (initIndex == undefined) 
+                          return letter;
+
+                        var offset = alphaIndex[pw[index % pw.length]];
+                        var newIndex = (initIndex - offset) < 0 ? alpha.length + initIndex - offset : (initIndex - offset) % alpha.length;
+                        var newletter =  alpha[newIndex];
+                        return newletter;
+                        }).join("");
+
+}
+var modified = encode("dillon", "the eiffel tower is a french treasure");
+console.log(modified);
+console.log(decode("dillon", modified));
+$("#encipher").click(function() {
+  $("#cypheroutput").text(encode($("#passcodeplain").val(), $("#plaintext").val()));
+});
+$("#decipher").click(function() {
+  $("#plaintextoutput").text(decode($("#passcodeenc").val(), $("#ciphertext").val()));
+});
+})();
+</script>
+</html>
